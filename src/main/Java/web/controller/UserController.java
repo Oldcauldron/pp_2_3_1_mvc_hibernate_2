@@ -8,7 +8,7 @@ import web.model.User;
 import web.service.UserService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping(value = "/users", produces = "text/html; charset=utf-8")
 public class UserController {
 
     UserService userService;

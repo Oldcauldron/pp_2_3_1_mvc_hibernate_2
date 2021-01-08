@@ -932,7 +932,9 @@ SELECT|sys.sys_config
 </ObjectGrants>
     </user>
     <table id="291" parent="12" name="hibernate_sequence"/>
-    <table id="292" parent="12" name="users"/>
+    <table id="292" parent="12" name="users">
+      <Collation>utf8_general_ci</Collation>
+    </table>
     <column id="293" parent="291" name="next_val">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>

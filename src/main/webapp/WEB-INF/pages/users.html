@@ -14,7 +14,7 @@
 
 <form th:method="POST" th:action="@{/users}" th:object="${newUser}">
     <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}"  id="name"/>
+    <input type="text" th:field="*{name}"  id="name" th:charset="utf-8"/>
 
     <label for="age">Enter age: </label>
     <input type="text" th:field="*{age}" id="age"/>

@@ -14,11 +14,13 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
+/*Аннотация @EnableTransactionManagement указывает Спринг, что классы с
+аннотацией @Transactional, должны быть обернуты аспектом транзакций. */
 @Configuration
 @ComponentScan(value = "web")
 @PropertySource("classpath:db.properties")
@@ -27,11 +29,15 @@ public class AppConfig {
 
     Environment env;
 
+
     @Autowired
     public void setEnv(Environment env) {
         this.env = env;
     }
 
+    // аналог Connection connection = DriverManager.getConnection(url, username, password)
+    // DriverManagerDataSource, не рекомендуется, т.к. это только замена нормального пула соединений и в целом подходит только для тестов
+    // Для нормального приложения предпочтительнее использовать какую-нибудь DBCP библиотеку. 
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -42,6 +48,7 @@ public class AppConfig {
         return dataSource;
     }
 
+    // этот метод нужен чтобы представить свойства Hibernate в виде объекта Properties
     public Properties getAdditionalProperties() {
         Properties properties = new Properties();
 //        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
@@ -51,6 +58,8 @@ public class AppConfig {
         return properties;
     }
 
+     /*для создания сессий, с помощью которых осуществляются операции с объектами-сущностями. 
+     Здесь мы устанавливаем источник данных, свойства Hibernate и в каком пакете нужно искать классы-сущности.*/
     @Bean
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
@@ -62,6 +71,7 @@ public class AppConfig {
         return emf;
     }
 
+    // для настройки менеджера транзакций.
     @Bean
     public PlatformTransactionManager getTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();

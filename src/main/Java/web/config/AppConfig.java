@@ -27,8 +27,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class AppConfig {
 
-    Environment env;
-
+    private Environment env;
 
     @Autowired
     public void setEnv(Environment env) {

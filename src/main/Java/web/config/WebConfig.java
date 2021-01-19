@@ -17,7 +17,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @ComponentScan("web")
 public class WebConfig implements WebMvcConfigurer {
 
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Autowired
     public void setApplicationContext(ApplicationContext applicationContext) {
